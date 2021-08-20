@@ -23,8 +23,16 @@ pipeline{
 		               ssh ec2-user@172.31.37.54 /opt/tomcat8/bin/shutdown.sh
 		               ssh ec2-user@172.31.37.54 /opt/tomcat8/bin/startup.sh
                                 """
-                }
+                      }
 	           }
-            }   
+              }
+	    stage('Email notification'){
+		    
+		    steps{
+			    mail bcc: '', body: '''Hi welcome to Jenkins email alerts
+                            Thanks 
+                            Ram''', cc: '', from: '', replyTo: '', subject: 'Jenkins-job', to: 'ramanujam96cloud@gmail.com'
+		    }
+	    }
         }
     }
