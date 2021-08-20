@@ -34,5 +34,13 @@ pipeline{
                             Ram''', cc: '', from: '', replyTo: '', subject: 'Jenkins-job', to: 'ramanujam96cloud@gmail.com'
 		    }
 	    }
+	    stage('slack Notification'){
+		    slackSend baseUrl: 'https://hooks.slack.com/services/', 
+			    channel: 'jenkins-pipeline', 
+			    color: 'good', 
+			    message: 'Welcome to jenkins slack!', 
+			    tokenCredentialId: 'slack-demo', 
+			    username: 'spatialcorp'
+	    }
         }
     }
