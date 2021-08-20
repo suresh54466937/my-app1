@@ -35,12 +35,14 @@ pipeline{
 		    }
 	    }
 	    stage('slack Notification'){
+		    steps{
 		    slackSend baseUrl: 'https://hooks.slack.com/services/', 
 			    channel: 'jenkins-pipeline', 
 			    color: 'good', 
 			    message: 'Welcome to jenkins slack!', 
 			    tokenCredentialId: 'slack-demo', 
 			    username: 'spatialcorp'
+		    }
 	    }
         }
     }
