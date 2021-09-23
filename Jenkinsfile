@@ -6,7 +6,7 @@ pipeline{
     stages{
         stage('Git checkout'){
             steps{
-               git credentialsId: 'github', url: 'https://github.com/Ram9500/my-app1'
+               git credentialsId: 'github', url: 'https://github.com/suresh54466937/my-app1'
             }
         }
 	    stage ('maven build'){
@@ -19,9 +19,9 @@ pipeline{
 		    steps{
 		 	  sshagent(['tomcat']) {
                              sh """
-                               scp -o StrictHostKeyChecking=no target/newapp.war ec2-user@172.31.37.54:/opt/tomcat8/webapps/
-		               ssh ec2-user@172.31.37.54 /opt/tomcat8/bin/shutdown.sh
-		               ssh ec2-user@172.31.37.54 /opt/tomcat8/bin/startup.sh
+                               scp -o StrictHostKeyChecking=no target/newapp.war ec2-user@172.31.44.148:/opt/apache-tomcat-8.5.71/webapps/
+		               ssh ec2-user@172.31.44.148 /opt/apache-tomcat-8.5.71/bin/shutdown.sh
+		               ssh ec2-user@172.31.44.148 /opt/apache-tomcat-8.5.71/bin/startup.sh
                                 """
                       }
 	           }
@@ -31,7 +31,7 @@ pipeline{
 		    steps{
 			    mail bcc: '', body: '''Hi welcome to Jenkins email alerts
                             Thanks 
-                            Ram''', cc: '', from: '', replyTo: '', subject: 'Jenkins-job', to: 'ramanujam96cloud@gmail.com'
+                            Suresh''', cc: '', from: '', replyTo: '', subject: 'Jenkins-job', to: 'suresh54466937@gmail.com'
 		    }
 	    }
 	    stage('slack Notification'){
