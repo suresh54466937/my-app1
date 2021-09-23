@@ -14,3 +14,7 @@ node{
       }
    }
 }
+tage ('maven build'){
+		    steps{
+			    sh 'mvn clean package'
+			      sh 'mv target/myweb*.war target/newapp.war'
