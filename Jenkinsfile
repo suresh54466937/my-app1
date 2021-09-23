@@ -16,16 +16,10 @@ pipeline{
 		    }
 	    }
 	    stage('deployment-dev'){
-		    steps{
-		 	  sshagent(['tomcat']) {
-                             sh """
-                               scp -o StrictHostKeyChecking=no target/newapp.war ec2-user@172.31.44.148:/opt/tomcat8/webapps/
-		               ssh ec2-user@172.31.44.148 /opt/tomcat8/bin/shutdown.sh
-		               ssh ec2-user@172.31.44.148 /opt/tomcat8/bin/startup.sh
-                                """
-                      }
-	           }
-              }
+		  sshagent(['tomcat-dev']) {
+                      sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@172.31.44.148:/opt/apache-tomcat-8.5.71/webapps/'
+               }
+	    }
 	    stage('Email notification'){
 		    
 		    steps{
