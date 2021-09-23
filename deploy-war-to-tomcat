@@ -1,6 +1,6 @@
 node{
    stage('SCM Checkout'){
-     git 'https://github.com/suresh54466937/my-app1'
+     git 'https://github.com/javahometech/my-app'
    }
    stage('Compile-Package'){
       // Get maven home path
@@ -9,8 +9,8 @@ node{
    }
    stage('Deploy to Tomcat'){
       
-      sshagent(['tomcat-dev']) {
-         sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@172.31.44.148:/opt/apache-tomcat-8.5.71/webapps/'
+      sshagent(['tomcat']) {
+         sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@172.31.44.148:/opt/tomcat8/webapps/'
       }
    }
    stage('Email Notification'){
@@ -18,4 +18,13 @@ node{
       Thanks
       Hari''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'suresh54466937@gmail.com'
    }
+   stage('Slack Notification'){
+       slackSend baseUrl: 'https://hooks.slack.com/services/',
+       channel: '#jenkins-pipeline-demo',
+       color: 'good', 
+       message: 'Welcome to Jenkins, Slack!', 
+       teamDomain: 'javahomecloud',
+       tokenCredentialId: 'slack-demo'
+   }
+
 }
